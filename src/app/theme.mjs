@@ -47,5 +47,5 @@ export const textButton={
     borderRadius:0,
     color:"primary",
     fontFamily:Fonts.regular,
-    textTransform:'lowercase'
+    textTransform:'none'
 }

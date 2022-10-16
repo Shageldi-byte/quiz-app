@@ -19,13 +19,19 @@ const style = {
 const selectedChipStyle={
     borderRadius:0,
     background:Colors.primary,
-    color:Colors.darkText
+    color:Colors.darkText,
+    "&:hover":{
+        background:Colors.primary
+    }
 }
 
 const UnselectedChipStyle={
     borderRadius:0,
     background:"#D1D1D1",
-    color:Colors.darkText
+    color:Colors.darkText,
+    "&:hover":{
+        background:Colors.primary
+    }
 }
 
 
