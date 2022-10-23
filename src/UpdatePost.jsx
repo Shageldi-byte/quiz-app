@@ -19,28 +19,32 @@ const style = {
 };
 const AddPost = (props) => {
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {
+        setOpen(true);
+        setTitle(props.item.title);
+        setBody(props.item.body);
+    }
     const handleClose = () => setOpen(false);
 
-    const [title,setTitle]=useState('');
-    const [body,setBody]=useState('');
+    // This code will run once
+    const [title,setTitle]=useState(props.item.title);
+    const [body,setBody]=useState(props.item.body);
 
     function click(){
         let data={
+            id:props.item.id,
             title:title,
             body:body,
             userId: 1
         }
-       AxiosInstance.post('/posts',data)
+       AxiosInstance.put(`/posts/${props.item.id}`,data)
            .then(response=>{
-               data.id=response.data;
                let temp=[
-                   data,
-                   ...props.list
+                   ...props.list.slice(0,props.index),// 0,1,2
+                   data,//3
+                   ...props.list.slice(props.index+1, props.list.length)//4...100
                ];
                props.setList(temp);
-               setTitle("");
-               setBody("");
                handleClose();
            })
            .catch(err=>{
@@ -50,12 +54,7 @@ const AddPost = (props) => {
     return (
         <div>
             <Button
-                sx={{
-                    position:'fixed',
-                    bottom:40,
-                    right:40
-                }}
-                variant={'contained'} onClick={handleOpen}> + Add Post</Button>
+                variant={'text'} onClick={handleOpen}>Edit</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -65,7 +64,7 @@ const AddPost = (props) => {
                 <Box sx={{...style,mt:5,mb:5}}>
 
                     <Stack direction={'column'} sx={{width:'100%'}} spacing={3}>
-                        <Typography sx={{width:'100%',fontSize:'18px'}}>Add new post</Typography>
+                        <Typography sx={{width:'100%',fontSize:'18px'}}>Update post</Typography>
                         <TextField
                             value={title}
                             onChange={e=>setTitle(e.target.value)}
@@ -79,7 +78,7 @@ const AddPost = (props) => {
                                 }
                             }}
                             variant={'outlined'} label={'Body'}/>
-                        <Button onClick={click} variant={'contained'}>Add</Button>
+                        <Button onClick={click} variant={'contained'}>Update</Button>
                     </Stack>
 
                 </Box>

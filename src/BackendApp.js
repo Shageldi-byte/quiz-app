@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
-import {Box, Card, CardActionArea, CardContent, Container, Grid, Modal, Typography} from "@mui/material";
+import {Box, Button, Card, CardActionArea, CardContent, Container, Grid, Modal, Typography} from "@mui/material";
 import AddPost from "./AddPost";
 import {AxiosInstance} from "./AxiosInstance.mjs";
+import UpdatePost from "./UpdatePost";
 
 const style = {
     position: 'absolute',
@@ -53,6 +54,23 @@ function BackendApp() {
             })
     }
 
+    function deletePost(id,index){
+        if(window.confirm("Do you want delete?")){
+            AxiosInstance.delete(`/posts/${id}`)
+                .then(response=>{
+                    let temp=[
+                        ...list.slice(0,index),// 0,1,2
+                        ...list.slice(index+1, list.length)//4...100
+                    ];
+                    setList(temp);
+                })
+                .catch(err=>{
+                    alert(err);
+                })
+        }
+
+    }
+
 
 
 
@@ -66,9 +84,9 @@ function BackendApp() {
                         list.map((item,i)=>{
                             return(
                                 <Grid key={`card-${i}`} item xs={6} sm={6} md={3}>
-                                    <Card onClick={()=>click(item)}>
+                                    <Card>
                                         <CardActionArea>
-                                            <CardContent>
+                                            <CardContent  onClick={()=>click(item)}>
                                                 <Typography sx={{
                                                     fontSize:'16px',
                                                     fontWeight:'bold'}}>
@@ -79,7 +97,11 @@ function BackendApp() {
                                                 }}>
                                                     {item.body}
                                                 </Typography>
+
+
                                             </CardContent>
+                                            <UpdatePost list={list} setList={setList} item={item} index={i}/>
+                                            <Button color={'error'} onClick={()=>deletePost(item.id,i)}>Delete</Button>
                                         </CardActionArea>
                                     </Card>
                                 </Grid>
