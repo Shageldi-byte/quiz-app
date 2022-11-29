@@ -50,12 +50,12 @@ const Quiz = (props) => {
             setTime()
             if(time===0){
                 time=30;
-                alert("Next question");
+                // alert("Next question");
             }
         },1000);
     }
     function setTime(){
-        document.getElementById("time").innerHTML=time;
+        // document.getElementById("time").innerHTML=time;
     }
     startTimer()
 
@@ -160,7 +160,7 @@ const Quiz = (props) => {
                                p:2
                            }}
                        >
-                           <label id={'time'}></label>
+                           <label id={'time'}>30</label>
                        </Stack>
 
                        <Stack direction={'row'} spacing={2} alignItems={'center'} justifyContent={'flex-end'}>

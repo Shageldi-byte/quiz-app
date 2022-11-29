@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux'
 import {actionCreators} from './state/index'
 import RHome from "./RHome";
 import {onMessageListener, requestForToken} from "./firebase";
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 export default function RApp(){
     const count=useSelector((state)=>state.counter);
@@ -25,7 +28,7 @@ export default function RApp(){
 
 
     useEffect(()=>{
-        alert(notification.title)
+        // alert(notification.title)
     },[notification])
 
     return(
@@ -35,6 +38,45 @@ export default function RApp(){
             <button onClick={()=>increament(1)}>+</button>
 
             <RHome/>
+
+            <OwlCarousel className='owl-theme' loop={false} items={2} margin={10} nav={false}>
+                <div class='item'>
+                    <h4>1</h4>
+                </div>
+                <div class='item'>
+                    <h4>2</h4>
+                </div>
+                <div class='item'>
+                    <h4>3</h4>
+                </div>
+                <div class='item'>
+                    <h4>4</h4>
+                </div>
+                <div class='item'>
+                    <h4>5</h4>
+                </div>
+                <div class='item'>
+                    <h4>6</h4>
+                </div>
+                <div class='item'>
+                    <h4>7</h4>
+                </div>
+                <div class='item'>
+                    <h4>8</h4>
+                </div>
+                <div class='item'>
+                    <h4>9</h4>
+                </div>
+                <div class='item'>
+                    <h4>10</h4>
+                </div>
+                <div class='item'>
+                    <h4>11</h4>
+                </div>
+                <div class='item'>
+                    <h4>12</h4>
+                </div>
+            </OwlCarousel>
         </div>
     )
 }
